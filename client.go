@@ -42,7 +42,7 @@ func main() {
 	log.Println("Content Watcher Started...")
 
 	client := gohubbub.NewClient(fmt.Sprintf("%s:%d", *host, *port), "ContentWatcher")
-        err := client.DiscoverAndSubscribe("http://tantek.com/", func(contentType string, body []byte) {
+        err := client.DiscoverAndSubscribe("http://tantek.com/updates.atom", func(contentType string, body []byte) {
 		var feed Feed
 		xmlError := xml.Unmarshal(body, &feed)
 
@@ -68,7 +68,7 @@ func main() {
 	var input string
 	fmt.Scanln(&input)
 
-        client.Unsubscribe("http://tantek.com/")
+        client.Unsubscribe("http://tantek.com/updates.atom")
 
 	time.Sleep(time.Second * 5)
 }
